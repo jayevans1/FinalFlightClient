@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pr="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="normalize.css" library="css" />
+	<h:outputStylesheet name="skeleton.css" library="css" />
+	<h:outputStylesheet name="style.css" library="css" />
+</h:head>
+<body>
+
+	<div class="container header">
+		<div class="row">
+			<div class="five columns">
+				<h1>FLIGHT BOOK</h1>
+			</div>
+			<h:form>
+				<div class="two columns">
+					<div>
+						<h:outputLabel for="username" value="Username" />
+						<h:inputText id="username" value="#{credential.username}"
+							required="true" requiredMessage="Please enter username"
+							p:placeholder="Enter Username" />
+
+						<h:message for="username" style="color: red;" />
+					</div>
+					<h:panelGroup styleClass="error" layout="block"
+						rendered="#{loginBean.loginValidationComplete and !loginBean.login}">
+						<h:outputLabel styleClass="error">User Name or Password is incorrect, Try again</h:outputLabel>
+					</h:panelGroup>
+				</div>
+
+				<div class="two columns">
+					<div>
+						<h:outputLabel for="password" value="Password" />
+						<h:inputSecret id="password" value="#{credential.password}"
+							required="true" requiredMessage="Please enter password"
+							p:placeholder="Enter Password" />
+						<h:message for="password" style="color: red;" />
+					</div>
+				</div>
+				<div class="one columns">
+					<h:commandButton action="#{loginBean.loginService()}" value="Login" />
+				</div>
+			</h:form>
+			<h:form>
+				<div class="one columns">
+					<h:commandButton action="#{loginBean.goToSignupPage()}"
+						value="Signup" />
+				</div>
+			</h:form>
+		</div>
+	</div>
+	<!-- END OF LOGIN ROW -->
+
+	<div class="container">
+		<div class="row">
+			<h:form>
+				<div class="five columns">
+					<div class="row">
+						<div class="six columns">
+							<h4>Origins</h4>
+
+							<h:selectOneListbox styleClass="listbox" id="originchosen"
+								value="#{searchBean.origin}" converter="location"
+								required="true" requiredMessage="Please Select a flight origin">
+								<f:selectItems id="origin" value="#{searchBean.getAllOrigin()}"
+									var="origin" itemLabel="#{origin}" itemValue="#{origin}" />
+								<f:ajax execute="origin" event="click" render="@form"></f:ajax>
+							</h:selectOneListbox>
+							<h:message for="originchosen" style="color: red;" />
+
+						</div>
+						<div class="six columns">
+							<h4>Destinations</h4>
+
+							<h:selectOneListbox styleClass="listbox" id="destinationchosen"
+								value="#{searchBean.destination}" converter="location"
+								required="true"
+								requiredMessage="Please Select a flight destination">
+								<f:selectItems value="#{searchBean.getAllDestination()}"
+									var="destination" itemLabel="#{destination}"
+									itemValue="#{destination}" />
+								<f:ajax execute="destinationchosen" event="click"
+									listener="#{searchBean.printD}"></f:ajax>
+							</h:selectOneListbox>
+							<h:message for="destinationchosen" style="color: red;" />
+
+						</div>
+					</div>
+					<div class="row">
+						<h4>Choose First Flight</h4>
+
+						<h:selectOneListbox styleClass="listbox" id="flightchosen"
+							value="#{searchBean.flightId}">
+							<f:selectItems value="#{searchBean.getFlightFromOrigin()}"
+								var="f" itemLabel="#{f.printString()}" itemValue="#{f.flightId}" />
+							<f:ajax event="click" listener="#{searchBean.printF}"></f:ajax>
+						</h:selectOneListbox>
+					</div>
+					<div class="row">
+						<h:commandButton value="Path">
+							<f:ajax execute="flightchosen destinationchosen originchosen"
+								listener="#{searchBean.path()}" render="searchedform"></f:ajax>
+						</h:commandButton>
+						<h:commandButton value="Search">
+							<f:ajax execute="flightchosen destinationchosen originchosen"
+								listener="#{searchBean.search()}"
+								render="searchedform"></f:ajax>
+						</h:commandButton>
+					</div>
+				</div>
+			</h:form>
+			<!-- END OF SELECT ORIGIN, DESTINATION -->
+			<div class="five columns ">
+				<h4>Flight Path</h4>
+				<div class="row">
+					<h:form id="searchedform">
+						<h:dataTable value="#{searchBean.nextFlights}" var="f"
+							styleClass="order-table" headerClass="order-table-header"
+							rowClasses="order-table-odd-row,order-table-even-row">
+
+							<h:column>
+								<!-- column header -->
+								<f:facet name="header">Flight Id</f:facet>
+								<!-- row record -->
+    						#{f.flightId}
+    					</h:column>
+
+							<h:column>
+								<f:facet name="header">Origin</f:facet>
+    						#{f.origin}
+    					</h:column>
+
+							<h:column>
+								<f:facet name="header">Destination</f:facet>
+    						#{f.destination}
+    					</h:column>
+
+							<h:column>
+								<f:facet name="header">Departure</f:facet>
+    						#{f.departure}
+    					</h:column>
+							<h:column>
+								<f:facet name="header">ETA</f:facet>
+    						#{f.eta}
+    					</h:column>
+						</h:dataTable>
+						<div class="row">
+							<h:panelGroup id="flightPathFound" layout="block"
+								rendered="#{!searchBean.foundFlightPath}">
+								<h6>No Flight Path Found</h6>
+							</h:panelGroup>
+						</div>
+					</h:form>
+				</div>
+
+				<div class="row">
+					<h4>Wanna Book a Flight??? Sign Up and Login to Book</h4>
+				</div>
+				<div class="row">
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<!-- END OF SEARCH -->
+
+	<!-- END OF PAGE -->
+
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+
+
+body {
+	text-align: center;
+}
+
+.wrapper{
+	height:
+}
+
+.border{
+	border: 1px solid black;
+}
+
+form .listbox {
+	height: 100%;
+}
+
+.error {
+	color: red;
+}

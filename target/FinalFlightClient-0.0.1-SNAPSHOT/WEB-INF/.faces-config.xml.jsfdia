@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#welcome#login.xhtml"
+  PATH="/welcome/login.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#welcome#login.xhtml:0" NAME="item"
+   PATH="/welcome/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="signup::#welcome#Signup.xhtml" NAME="output"
+    PATH="/welcome/Signup.xhtml" TARGET="rules:#welcome#Signup.xhtml"
+    TITLE="signup" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="success::#secure#SearchPage.xhtml"
+    NAME="output1" PATH="/secure/SearchPage.xhtml"
+    TARGET="rules:#secure#SearchPage.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#welcome#Signup.xhtml"
+  PATH="/welcome/Signup.xhtml" SHAPE="256,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#welcome#Signup.xhtml:0" NAME="item"
+   PATH="/welcome/Signup.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="login::#welcome#login.xhtml" NAME="output"
+    PATH="/welcome/login.xhtml" TARGET="rules:#welcome#login.xhtml"
+    TITLE="login" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#secure#SearchPage.xhtml"
+  PATH="/secure/SearchPage.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#secure#SearchPage.xhtml:0" NAME="item"
+   PATH="/secure/SearchPage.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="edit::#secure#EditProfile.xhtml"
+    NAME="output" PATH="/secure/EditProfile.xhtml"
+    TARGET="rules:#secure#EditProfile.xhtml" TITLE="edit" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="logout::#welcome#login.xhtml" NAME="output1"
+    PATH="/welcome/login.xhtml" TARGET="rules:#welcome#login.xhtml"
+    TITLE="logout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#secure#EditProfile.xhtml"
+  PATH="/secure/EditProfile.xhtml" SHAPE="464,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#secure#EditProfile.xhtml:0" NAME="item"
+   PATH="/secure/EditProfile.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#secure#SearchPage.xhtml"
+    NAME="output" PATH="/secure/SearchPage.xhtml"
+    TARGET="rules:#secure#SearchPage.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

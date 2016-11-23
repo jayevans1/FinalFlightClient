@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<h1>Edit Profile #{loginBean.user.username}</h1>
+
+	<h:form id="register">
+
+		<h:message for="RegisterGroupPanel" style="color:red;" />
+
+		<h:panelGrid columns="3" id="RegisterGroupPanel">
+
+			<h:outputLabel for="password" value="Password : " />
+			<h:inputSecret id="password" value="#{loginBean.editUser.password}"
+				required="true" requiredMessage="Please enter password">
+				<f:validator validatorId="passwordValidator" />
+				<f:attribute name="confirmPassword" value="#{confirmPassword}" />
+			</h:inputSecret>
+			<h:message for="password" style="color: red;" />
+
+			<h:outputLabel for="confirmPassword" value="Confirm password : " />
+			<h:inputSecret id="confirmPassword" required="true"
+				binding="#{confirmPassword}"
+				requiredMessage="Please enter confirm password" />
+			<h:message for="confirmPassword" style="color: red;" />
+
+			<h:outputLabel for="firstname" value="firstname : " />
+			<h:inputText id="firstname" value="#{loginBean.editUser.firstname}"
+				required="true" requiredMessage="Please enter your lastname" />
+			<h:message for="firstname" style="color: red;" />
+
+			<h:outputLabel for="lastname" value="lastname : " />
+			<h:inputText id="lastname" value="#{loginBean.editUser.lastname}"
+				required="true" requiredMessage="Please enter your lastname" />
+			<h:message for="lastname" style="color: red;" />
+
+			<h:outputLabel for="email" value="email : " />
+			<h:inputText id="email" value="#{loginBean.editUser.email}"
+				required="true" requiredMessage="Please enter email"
+				validatorMessage="email not valid: example@web.com">
+				<f:validateRegex
+					pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.(com|net|org|edu)" />
+			</h:inputText>
+			<h:message for="email" style="color: red;" />
+
+			<h:outputLabel for="street" value="street : " />
+			<h:inputText id="street" value="#{loginBean.editUser.street}"
+				required="true" requiredMessage="Please enter your street" />
+			<h:message for="street" style="color: red;" />
+
+			<h:outputLabel for="city" value="city : " />
+			<h:inputText id="city" value="#{loginBean.editUser.city}" required="true"
+				requiredMessage="Please enter your city" />
+			<h:message for="city" style="color: red;" />
+
+			<h:outputLabel for="state" value="state : " />
+			<h:inputText id="state" value="#{loginBean.editUser.state}"
+				required="true" requiredMessage="Please enter your state" />
+			<h:message for="state" style="color: red;" />
+
+		</h:panelGrid>
+
+		<h:commandButton action="#{loginBean.editProfile()}" value="Update" />
+		
+	</h:form>
+	<h:form><h:commandButton action="/secure/SearchPage.xhtml" value="Back to Search" /></h:form>
+	
+	<h:form id="searchedform">
+						<h:dataTable value="#{searchBean.bookedFlightPath}" var="f"
+							styleClass="order-table" headerClass="order-table-header"
+							rowClasses="order-table-odd-row,order-table-even-row">
+
+							<h:column>
+								<!-- column header -->
+								<f:facet name="header">Flight Id</f:facet>
+								<!-- row record -->
+    						#{f.printString()}
+    					</h:column>
+						</h:dataTable>
+					</h:form>
+</body>
+</html>
